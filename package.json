@@ -1,0 +1,17 @@
+{
+  "name": "backend-project-manager",
+  "version": "1.0.0",
+  "description": "This is a learning project, where a product will be created that will be useful for project management.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
