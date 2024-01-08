@@ -6,13 +6,13 @@ const {
 } = require("../validators/auth");
 const { matchedData } = require("express-validator");
 const { encrypt, compare } = require('../utils/handlePassword');
-const user = require('../controllers/users')
+const auth = require('../controllers/auth')
 
 router.post("/register", validatorRegisterSchema, async (req, res) => {
   req = matchedData(req);
   const password = await encrypt(req.password);
   const body = { ...req, password };
-  const response = user.createUser(body);
+  const response = await auth.registerUser(body);
   res.send({ data: response });
 });
 
