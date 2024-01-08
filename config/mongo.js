@@ -6,8 +6,6 @@ const dbConnect = async () => {
 
   try {
     await mongoose.connect(DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       writeConcern: {
         w: "majority",
         j: true,
