@@ -1,5 +1,6 @@
 const { check } = require("express-validator");
 const validateResults = require("../utils/handleValidator");
+const userModel = require("../models/nosql/users");
 
 const validatorRegisterSchema = [
   check("name")
@@ -12,7 +13,13 @@ const validatorRegisterSchema = [
     .withMessage("The email is required")
     .notEmpty()
     .withMessage("Email cannot be empty")
-    .isEmail(),
+    .isEmail()
+    .custom(async (value) => {
+      const existingUser = await userModel.findOne({ email: value });
+      if (existingUser) {
+        return Promise.reject("Email is already in use");
+      }
+    }),
   check("password")
     .exists()
     .withMessage("The password is required")
