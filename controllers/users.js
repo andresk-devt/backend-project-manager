@@ -1,9 +1,9 @@
 const { usersModel } = require("../models");
 
-const createUser = async (req, res) => {
-  const { body } = req;
-  const data = await usersModel.create(body);
-  res.send({ data });
+const createUser = async (body) => {
+  const response = await usersModel.create(body);
+  response.set('password', undefined, { strict: false });
+  return response;
 };
 
 const updateUser = (req, res) => {};
