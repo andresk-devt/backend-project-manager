@@ -1,17 +1,24 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const dbConnect = require('./config/mongo');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const dbConnect = require("./config/mongo");
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use("/api", require('./routes'))
+async function initializeApp() {
+  await dbConnect();
+  startServer();
+}
 
-const PORT = process.env.PORT || 3000;
+function startServer() {
+  const app = express();
+  app.use(cors());
+  app.use(express.json());
+  app.use("/api", require("./routes"));
 
-dbConnect();
+  const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port http://localhost:${PORT}/`)
-});
+  app.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}/`);
+  });
+}
+
+initializeApp();
